@@ -1,0 +1,27 @@
+api:
+  endpoints:
+    - com.example.springgroovychassis.rest.ChassisApi
+    - com.example.springgroovychassis.ops.HealthApi
+
+---
+spring:
+  profiles: dev
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        healthCheckPath: /api/health
+        healthCheckInterval: 15s
+
+---
+spring:
+  profiles: docker
+  cloud:
+    consul:
+      host: storeinfrastructure_consul_1
+      port: 8500
+      discovery:
+        healthCheckPath: /api/health
+        healthCheckInterval: 15s
+        preferIpAddress: true # not using this flag makes consul use the container Id instead of ip and so breaks

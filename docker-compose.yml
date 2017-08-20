@@ -1,0 +1,15 @@
+# docker-compose file for a microservice lists all containers the service needs. In this case, couchbase to store data
+
+version: '3'
+
+services:
+
+  microservice-chassis:
+    build: .
+    network_mode: bridge
+    ports:
+      - 8080
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    external_links:
+      - storeinfrastructure_consul_1
